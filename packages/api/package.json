@@ -1,0 +1,11 @@
+{
+  "name": "@eop/api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Danilo Assis",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "webpack --watch --progress --config webpack.config.api.js"
+  }
+}
