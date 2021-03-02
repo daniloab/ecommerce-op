@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "author": "Danilo Assis",
   "license": "MIT",
-
   "devDependencies": {
     "@babel/cli": "7.7.7",
     "@babel/core": "7.7.7",

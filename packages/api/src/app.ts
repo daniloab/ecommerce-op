@@ -25,8 +25,6 @@ routerOpen.get('/api/version', ctx => {
 
 app.use(routerOpen.routes());
 
-app.use(routerAuth.routes());
-
 // Default not found 404
 app.use(ctx => {
     ctx.status = 404;
