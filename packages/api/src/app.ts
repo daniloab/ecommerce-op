@@ -9,6 +9,7 @@ import { version } from '../package.json';
 import { twitchDonatePost } from './modules/twitchDonate/twitchDonatePost';
 import { twitchDonateGet } from './modules/twitchDonate/twitchDonateGet';
 import {donorPost} from "./modules/donor/donorPost";
+import {donorGet} from "./modules/donor/donorGet";
 
 const app = new Koa();
 
@@ -30,6 +31,7 @@ router.get('/api/version', (ctx) => {
 router.get('/donate/:id', twitchDonateGet);
 router.post('/donate', twitchDonatePost);
 
+router.get('/donor/:id', donorGet);
 router.post('/donor', donorPost);
 
 app.use(router.routes());
