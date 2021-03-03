@@ -14,9 +14,7 @@ export const onlyDigits = (value?: string) => {
   return value.toString().trim().match(/\d/g).join('');
 };
 
-const getTaxID = (
-  taxID: string,
-) => {
+const getTaxID = (taxID: string) => {
   if (isCNPJ(taxID)) {
     return {
       taxID: {
@@ -42,6 +40,43 @@ const getTaxID = (
   };
 };
 
+export const createDonor = async (
+  body,
+) => {
+  const { error: errorTaxID, taxID } = getTaxID(body.taxID);
+
+  if (errorTaxID) {
+    return errorTaxID;
+  }
+
+  const donor = await new DonorModel({
+    name: body.name,
+    email: body?.email,
+    taxID: taxID,
+  }).save();
+
+  const payload = {
+    name: donor.name,
+    taxID: donor.taxID.taxID,
+    email: donor?.email,
+  };
+
+  const { customer, error } = await customerPost(payload);
+
+  if (error) {
+    return error;
+  }
+
+  return {
+    donor: {
+      name: customer.name,
+      taxID: customer.taxID,
+      email: customer?.email,
+    },
+    error: null,
+  };
+};
+
 type DonorPostBody = {
   name: string;
   taxID: string;
@@ -61,29 +96,7 @@ export const donorPost = async (
     return;
   }
 
-  const { error: errorTaxID, taxID } = getTaxID(body.taxID, ctx);
-
-  if (errorTaxID) {
-    ctx.body = {
-      error: errorTaxID,
-    };
-    ctx.status = 400;
-    return;
-  }
-
-  const donor = await new DonorModel({
-    name: body.name,
-    email: body?.email,
-    taxID: taxID,
-  }).save();
-
-  const payload = {
-    name: donor.name,
-    taxID: donor.taxID.taxID,
-    email: donor?.email,
-  };
-
-  const { customer, error } = await customerPost(payload);
+  const { donor, error } = await createDonor(body);
 
   if (error) {
     ctx.status = 400;
@@ -94,11 +107,7 @@ export const donorPost = async (
   }
 
   ctx.body = {
-    donor: {
-      name: customer.name,
-      taxID: customer.taxID,
-      email: customer?.email,
-    },
+    donor,
   };
   ctx.status = 200;
 };
