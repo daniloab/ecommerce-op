@@ -1,4 +1,6 @@
-import mongoose, { Document, Model } from 'mongoose';
+import mongoose, { Document, Model, Types } from 'mongoose';
+
+const { ObjectId } = mongoose.Schema.Types;
 
 export const TWITCH_DONATE_STATUS = {
   OPEN: 'OPEN',
@@ -7,14 +9,6 @@ export const TWITCH_DONATE_STATUS = {
 
 const Schema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      description: 'name of person or whatever',
-    },
-    email: {
-      type: String,
-      description: 'email of person or whatever',
-    },
     value: {
       type: Number,
       description: 'value of this charge in cents',
@@ -36,6 +30,13 @@ const Schema = new mongoose.Schema(
       type: String,
       description: 'brcode of this donation',
     },
+    donor: {
+      type: ObjectId,
+      ref: 'Donor',
+      index: true,
+      required: false,
+      description: 'Donor from this donate',
+    },
   },
   {
     collection: 'TwitchDonate',
@@ -44,16 +45,18 @@ const Schema = new mongoose.Schema(
 );
 
 export interface ITwitchDonate extends Document {
-  name: string;
-  email: string;
   value: number;
   comment: string;
   status: string;
   brCode: string;
+  donor?: Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
 }
 
-const TwitchDonateModel: Model<ITwitchDonate> = mongoose.model('TwitchDonate', Schema);
+const TwitchDonateModel: Model<ITwitchDonate> = mongoose.model(
+  'TwitchDonate',
+  Schema,
+);
 
 export default TwitchDonateModel;
