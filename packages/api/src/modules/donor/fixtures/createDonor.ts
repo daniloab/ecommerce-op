@@ -10,7 +10,10 @@ export const createDonor = async (args: DeepPartial<IDonor> = {}) => {
   const {
     name = `User ${n}`,
     email = `user${n}@test.com`,
-    taxID = '187.323.286-13',
+    taxID = {
+      type: 'BR:CPF',
+      taxID: '187.323.286-13',
+    },
   } = args;
 
   return await new Donor({

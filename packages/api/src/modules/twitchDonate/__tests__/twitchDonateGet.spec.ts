@@ -6,15 +6,8 @@ import {
 import { createGetApiCall } from "../../../../test/restUtils";
 import { TWITCH_DONATE_STATUS } from "../TwitchDonateModel";
 import { createTwitchDonate } from "../fixtures/createTwitchDonate";
-import {debugConsole} from "../../../../debugConsole";
 
-beforeAll(connectMongoose);
-
-beforeEach(clearDbAndRestartCounters);
-
-afterAll(disconnectMongoose);
-
-beforeAll(connectMongoose);
+beforeAll(connectMongoose)
 
 beforeEach(clearDbAndRestartCounters);
 
@@ -23,13 +16,13 @@ afterAll(disconnectMongoose);
 const getUrl = (id: string) => `/donate/${id}`;
 
 it("should return error for id invalid", async () => {
-    const response = await createGetApiCall({
-        url: getUrl('12345'),
-    });
+  const response = await createGetApiCall({
+    url: getUrl("12345"),
+  });
 
-    expect(response.status).toBe(400);
+  expect(response.status).toBe(400);
 
-    // expect(response.body.twitchDonate.name).toBe(twitchDonate.name);
+  expect(response.body.error).toBe("id is invalid");
 });
 
 it("should get donate by id", async () => {
