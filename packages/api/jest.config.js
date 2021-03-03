@@ -6,6 +6,7 @@ module.exports = {
   testEnvironment: '<rootDir>/test/environment/mongodb',
   testPathIgnorePatterns: ['/node_modules/', './dist'],
   coverageReporters: ['lcov', 'html'],
+  setupFiles: ['<rootDir>/test/setupFiles.js'],
   setupFilesAfterEnv: ['<rootDir>/test/setupTestFramework.js'],
   resetModules: false,
   reporters: ['default', 'jest-junit'],
