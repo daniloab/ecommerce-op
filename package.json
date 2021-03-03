@@ -61,6 +61,7 @@
     "eslint-plugin-relay": "1.3.2",
     "eslint-plugin-typescript": "0.14.0",
     "jest": "25.1.0",
+    "jest-fetch-mock": "^3.0.3",
     "jest-junit": "12.0.0",
     "jsonwebtoken": "^8.5.1",
     "lerna": "^3.4.1",
@@ -72,12 +73,16 @@
     "typescript": "3.7.2"
   },
   "scripts": {
-    "api": "yarn workspace @eop/api start"
+    "api": "yarn workspace @eop/api start",
+    "jest": "jest"
   },
   "private": true,
   "workspaces": {
     "packages": [
       "packages/*"
     ]
+  },
+  "dependencies": {
+    "graphql-relay": "^0.6.0"
   }
 }
