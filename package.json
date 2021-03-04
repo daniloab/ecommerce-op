@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "author": "Danilo Assis",
   "license": "MIT",
+  "dependencies": {
+    "brazilian-values": "^0.10.1",
+    "graphql-relay": "^0.6.0"
+  },
   "devDependencies": {
     "@babel/cli": "7.7.7",
     "@babel/core": "7.7.7",
@@ -60,6 +64,7 @@
     "eslint-plugin-react-hooks": "4.2.0",
     "eslint-plugin-relay": "1.3.2",
     "eslint-plugin-typescript": "0.14.0",
+    "html-webpack-plugin": "^5.2.0",
     "jest": "25.1.0",
     "jest-fetch-mock": "^3.0.3",
     "jest-junit": "12.0.0",
@@ -74,16 +79,13 @@
   },
   "scripts": {
     "api": "yarn workspace @eop/api start",
-    "jest": "jest"
+    "jest": "jest",
+    "web": "yarn workspace @eop/web start"
   },
   "private": true,
   "workspaces": {
     "packages": [
       "packages/*"
     ]
-  },
-  "dependencies": {
-    "brazilian-values": "^0.10.1",
-    "graphql-relay": "^0.6.0"
   }
 }
